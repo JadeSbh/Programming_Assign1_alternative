@@ -64,6 +64,20 @@ def check_winX(A):
             return 1
 
 
+def play_again():
+    while True:
+        try:
+            x = int(input("Do you want to play again enter 1 for yes, 0 for no:  "))
+            if x == 1:
+                return x
+            elif x==0:
+               print("BYE BYE!")
+               sys.exit()
+            else:
+                print("please enter 1 for yes, 0 for no:  ")
+        except ValueError:
+            print("please enter a valid choice 1 for yes, 0 for no")
+
 def check_winO(A):
     for i in range(len(A)):
         if A[i][0] == A[i][1] == A[i][2] == "O" \
@@ -82,56 +96,72 @@ Hello, welcome to this simple version of Tic-Toc game.
 Please, make your choice:
 1.Player X VS player O
 2.Player X VS AI 
-3.quit
 """
 while True:
     print(menu)
-    choice = int(input("Please, choose from the menu 1,2 or 0 to quit:  "))
+    choice = int(input("Please, choose from the menu 1 or 2:  "))
     if choice == 1:
-        print("YOU CHOSE PLAYER X VS PLAYER O ")
-        print("player X plays first")
-        roundX = getX(list_default)
-        print_game(roundX)
-        for i in range(0, 4):
-            print("Player O, it's your turn now ")
-            roundO = getO(roundX)
-            print_game(roundO)
-            winner = check_winO(roundX)
-            if winner == 1:
-                print("The winner is player O")
-                sys.exit()
-            print("Player X, it's your turn now ")
-            roundX = getX(roundO)
+        again = 1
+        while again == 1:
+            win_countX = 0
+            win_countO = 0
+            print("YOU CHOSE PLAYER X VS PLAYER O ")
+            print("player X plays first")
+            roundX = getX(list_default)
             print_game(roundX)
-            winner = check_winX(roundX)
-            if winner == 1:
-                print("The winner is player X")
-                sys.exit()
-        print("it is a tie")
-    elif choice == 2:
-        print("you chose to play with the computer")
-        print("player X, you play first")
-        roundX = getX(list_default)
-        print_game(roundX)
-        for i in range(0, 4):
-            print("AU , This is my play ")
-            roundO = AU_getO(roundX)
-            print_game(roundO)
-            winner = check_winO(roundX)
-            if winner == 1:
-                print("The winner is player O")
-                sys.exit()
-            print("Player X, it's your turn now ")
-            roundX = getX(roundO)
-            print_game(roundX)
-            winner = check_winX(roundX)
-            if winner == 1:
-                print("The winner is player X")
-                sys.exit()
-        else:
+            for i in range(0, 4):
+                print("Player O, it's your turn now ")
+                roundO = getO(roundX)
+                print_game(roundO)
+                winner = check_winO(roundX)
+                if winner == 1:
+                    print("The winner is player O")
+                    win_countO = win_countO + 1
+                    play_again()
+                print("Player X, it's your turn now ")
+                roundX = getX(roundO)
+                print_game(roundX)
+                winner = check_winX(roundX)
+                if winner == 1:
+                    print("The winner is player X")
+                    win_countX = win_countX + 1
+                    play_again()
             print("it is a tie")
+    elif choice == 2:
+        again = 1
+        while again == 1:
+            win_countX = 0
+            win_countO = 0
+            print("you chose to play with the computer")
+            user = input("Please enter your name: ")
+            print(f"{user}, you play first")
+            roundX = getX(list_default)
+            print_game(roundX)
+            for i in range(0, 4):
+                print("AU , This is my play ")
+                roundO = AU_getO(roundX)
+                print_game(roundO)
+                winner = check_winO(roundX)
+                if winner == 1:
+                    print("The winner is player O")
+                    win_countO = win_countO + 1
+                    print(f"The AU won {win_countO} times | {user} won {win_countX} times")
+                    play_again()
+                    continue
+                print(f"{user}, it's your turn now ")
+                roundX = getX(roundO)
+                print_game(roundX)
+                winner = check_winX(roundX)
+                if winner == 1:
+                    print("The winner is player X")
+                    win_countX = win_countX + 1
+                    print(f"The AU won {win_countO} times | {user} won {win_countX} times")
+                    play_again()
+                    continue
+            else:
+                print("it is a tie")
     elif choice == 0:
         print("BYe BYE !")
         break
     else:
-        print("Please, choose from the menu 1, 2, or 0 to quit")
+        print("Please, choose from the menu 1, OR 2 ")
