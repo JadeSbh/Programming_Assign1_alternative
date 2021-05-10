@@ -36,11 +36,11 @@ def getO(list_game):
 
 
 def print_game(yourlist):
-    print(yourlist[0])
+    print(*yourlist[0], sep=' | ')
     print("__________")
-    print(yourlist[1])
+    print(*yourlist[1], sep=' | ')
     print("----------")
-    print(yourlist[2])
+    print(*yourlist[2], sep=' | ')
 
 
 def check_win(A):
@@ -56,7 +56,6 @@ list_default = [[0, 0, 0],
                 [0, 0, 0],
                 [0, 0, 0]
                 ]
-
 print("Hello to this simple version of tic-toc game :) ")
 print("player X plays first")
 roundX = getX(list_default)
@@ -111,3 +110,5 @@ else:
                     sys.exit()
                 else:
                     print("it is a tie")
+
+
