@@ -1,4 +1,4 @@
-import sys
+import sys  #www.geeksforgeeks.com
 import random
 
 
@@ -47,7 +47,7 @@ def AU_getO(list_game):
             print("opps, it seems that I cannot play here, I am not that smart yet!")
 
 
-def print_game(yourlist):
+def print_game(yourlist):   #www.kite.com
     print(*yourlist[0], sep=' | ')
     print("__________")
     print(*yourlist[1], sep=' | ')
@@ -127,6 +127,7 @@ while True:
                     win_countX = win_countX + 1
                     play_again()
             print("it is a tie")
+            play_again()
     elif choice == 2:
         again = 1
         while again == 1:
@@ -160,8 +161,6 @@ while True:
                     continue
             else:
                 print("it is a tie")
-    elif choice == 0:
-        print("BYe BYE !")
-        break
+                play_again()
     else:
         print("Please, choose from the menu 1, OR 2 ")
