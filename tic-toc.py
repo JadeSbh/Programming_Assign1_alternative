@@ -1,4 +1,4 @@
-import sys  #www.geeksforgeeks.com
+import sys  # this package from www.geeksforgeeks.com
 import random
 
 
@@ -47,7 +47,7 @@ def AU_getO(list_game):
             print("opps, it seems that I cannot play here, I am not that smart yet!")
 
 
-def print_game(yourlist):   #www.kite.com
+def print_game(yourlist):  # www.kite.com
     print(*yourlist[0], sep=' | ')
     print("__________")
     print(*yourlist[1], sep=' | ')
@@ -70,13 +70,14 @@ def play_again():
             x = int(input("Do you want to play again enter 1 for yes, 0 for no:  "))
             if x == 1:
                 return x
-            elif x==0:
-               print("BYE BYE!")
-               sys.exit()
+            elif x == 0:
+                print("BYE BYE!")
+                sys.exit()
             else:
                 print("please enter 1 for yes, 0 for no:  ")
         except ValueError:
             print("please enter a valid choice 1 for yes, 0 for no")
+
 
 def check_winO(A):
     for i in range(len(A)):
@@ -85,6 +86,14 @@ def check_winO(A):
                 or A[0][0] == A[1][1] == A[2][2] == "O" \
                 or A[0][2] == A[1][1] == A[2][0] == "O":
             return 1
+
+
+def clear_board(yourlist):
+    yourlist = [[" ", " ", " "],
+                [" ", " ", " "],
+                [" ", " ", " "]
+                ]
+    return yourlist
 
 
 list_default = [[" ", " ", " "],
@@ -113,10 +122,12 @@ while True:
                 print("Player O, it's your turn now ")
                 roundO = getO(roundX)
                 print_game(roundO)
-                winner = check_winO(roundX)
+                winner = check_winO(roundO)
                 if winner == 1:
                     print("The winner is player O")
                     win_countO = win_countO + 1
+                    print(f"Player O won {win_countO} times | Player X won {win_countX} times")
+                    clear_board(roundO)
                     play_again()
                 print("Player X, it's your turn now ")
                 roundX = getX(roundO)
@@ -125,8 +136,11 @@ while True:
                 if winner == 1:
                     print("The winner is player X")
                     win_countX = win_countX + 1
+                    print(f"Player O won {win_countO} times | Player X won {win_countX} times")
+                    clear_board(roundX)
                     play_again()
             print("it is a tie")
+            clear_board(roundX)
             play_again()
     elif choice == 2:
         again = 1
@@ -139,14 +153,15 @@ while True:
             roundX = getX(list_default)
             print_game(roundX)
             for i in range(0, 4):
-                print("AU , This is my play ")
+                print("AI , This is my play ")
                 roundO = AU_getO(roundX)
                 print_game(roundO)
-                winner = check_winO(roundX)
+                winner = check_winO(roundO)
                 if winner == 1:
                     print("The winner is player O")
                     win_countO = win_countO + 1
                     print(f"The AU won {win_countO} times | {user} won {win_countX} times")
+                    clear_board(roundO)
                     play_again()
                     continue
                 print(f"{user}, it's your turn now ")
@@ -154,13 +169,15 @@ while True:
                 print_game(roundX)
                 winner = check_winX(roundX)
                 if winner == 1:
-                    print("The winner is player X")
+                    print(f"The winner is {user}")
                     win_countX = win_countX + 1
                     print(f"The AU won {win_countO} times | {user} won {win_countX} times")
+                    clear_board(roundX)
                     play_again()
                     continue
             else:
                 print("it is a tie")
+                clear_board(roundX)
                 play_again()
     else:
         print("Please, choose from the menu 1, OR 2 ")
